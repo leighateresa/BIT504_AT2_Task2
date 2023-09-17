@@ -1,3 +1,5 @@
+package tictactoe;
+
 /**
  * Enumeration for the players move
  */
