@@ -31,14 +31,12 @@ public class GameMain extends JPanel implements MouseListener{
         Playing, Draw, Cross_Won, Nought_Won
     }
 	 	 
-	//TODO: create the enumeration for the variable below (GameState currentState)
-	//HINT all of the states you require are shown in the code within GameMain
+	//create the enumeration for the variable
 	private GameState currentState; 
 	
 	private enum Player {
         Cross, Nought, Empty
     }
-	
 	
 	// the current player
 	private Player currentPlayer; 
@@ -47,10 +45,7 @@ public class GameMain extends JPanel implements MouseListener{
 	
 
 	/** Constructor to setup the UI and game components on the panel */
-	public GameMain() {   
-		
-		// TODO: This JPanel fires a MouseEvent on MouseClicked so add required event listener to 'this'.          
-	    
+	public GameMain() {        
 	    
 		// Setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
@@ -73,11 +68,6 @@ public class GameMain extends JPanel implements MouseListener{
 
         // Add mouse click event listener to this panel
         addMouseListener(this);
-		
-		// TODO: Create a new instance of the game "Board"class. HINT check the variables above for the correct name
-
-		
-		//TODO: call the method to initialise the game board
 
 	}
 	
@@ -94,13 +84,6 @@ public class GameMain extends JPanel implements MouseListener{
 
                 // Set the default close operation of the frame to exit on close
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				
-				//TODO: create the new GameMain panel and add it to the frame
-						
-				
-				
-				//TODO: set the default close operation of the frame to exit_on_close
-		            
 				
 				frame.pack();             
 				frame.setLocationRelativeTo(null);
@@ -136,7 +119,6 @@ public class GameMain extends JPanel implements MouseListener{
         }
     }
 		
-	
 	  /** Initialise the game-board contents and the current status of GameState and Player) */
 		public void initGame() {
 			for (int row = 0; row < ROWS; ++row) {          
@@ -200,9 +182,7 @@ public class GameMain extends JPanel implements MouseListener{
 			// game over and restart              
 			initGame();            
 		}   
-		repaint();
-		
-		//TODO: redraw the graphics on the UI          
+		repaint();        
            
 	}
 		
