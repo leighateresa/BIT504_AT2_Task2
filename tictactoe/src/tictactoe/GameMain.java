@@ -43,7 +43,7 @@ public class GameMain extends JPanel implements MouseListener{
 	/** Constructor to setup the UI and game components on the panel */
 	public GameMain() {        
 	    
-		// Setup the status bar (JLabel) to display status message       
+		// S\setup the status bar (JLabel) to display status message       
 		statusBar = new JLabel("         ");       
 		statusBar.setFont(new Font(Font.DIALOG_INPUT, Font.BOLD, 14));       
 		statusBar.setBorder(BorderFactory.createEmptyBorder(2, 5, 4, 5));       
@@ -56,29 +56,29 @@ public class GameMain extends JPanel implements MouseListener{
 		// account for statusBar height in overall height
 		setPreferredSize(new Dimension(CANVAS_WIDTH, CANVAS_HEIGHT + 30));
 		
-		// Create a new instance of the game "Board" class
+		// create a new instance of the game "Board" class
         board = new Board();
 
-        // Call the method to initialize the game board
+        // call the method to initialize the game board
         initGame();
 
-        // Add mouse click event listener to this panel
+        // add mouse click event listener to this panel
         addMouseListener(this);
 
 	}
 	
 	public static void main(String[] args) {
-		    // Run GUI code in Event Dispatch thread for thread safety.
+		    // run GUI code in Event Dispatch thread for thread safety.
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 	         public void run() {
-				//create a main window to contain the panel
+				// create a main window to contain the panel
 				JFrame frame = new JFrame(TITLE);
 				
-				// Create the new GameMain panel and add it to the frame
+				// create the new GameMain panel and add it to the frame
                 GameMain gameMain = new GameMain();
                 frame.add(gameMain);
 
-                // Set the default close operation of the frame to exit on close
+                // set the default close operation of the frame to exit on close
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				
 				frame.pack();             
@@ -89,29 +89,32 @@ public class GameMain extends JPanel implements MouseListener{
 	}
 	/** Custom painting codes on this JPanel */
 	public void paintComponent(Graphics g) {
-		//fill background and set colour to white
+		// fill background and set colour to white
 		super.paintComponent(g);
 		setBackground(Color.WHITE);
-		//ask the game board to paint itself
+		// ask the game board to paint itself
 		board.paint(g);
 		
-		//set status bar message
-		if (currentState == GameState.Playing) {
+		// set status bar message
+		if (currentState == GameState.Playing) {		// while game is being played 
             statusBar.setForeground(Color.BLACK);
-            if (currentPlayer == Player.Cross) {
-                statusBar.setText("X's Turn");
+            if (currentPlayer == Player.Cross) {		// if current player is player cross
+                statusBar.setText("X's Turn");			// status bar text says X's turn
             } else {
-                statusBar.setText("O's Turn");
+                statusBar.setText("O's Turn");			// if not, status bar text says O's turn
             }
-        } else if (currentState == GameState.Draw) {
+        } 
+		else if (currentState == GameState.Draw) {		// if game ends in a draw
             statusBar.setForeground(Color.RED);
-            statusBar.setText("It's a Draw! Click to play again.");
-        } else if (currentState == GameState.Cross_Won) {
+            statusBar.setText("It's a Draw! Click to play again.");		// status bar updates
+        } 
+		else if (currentState == GameState.Cross_Won) {		// if cross won
             statusBar.setForeground(Color.RED);
-            statusBar.setText("'X' Won! Click to play again.");
-        } else if (currentState == GameState.Nought_Won) {
+            statusBar.setText("'X' Won! Click to play again.");	// status bar updates
+        } 
+		else if (currentState == GameState.Nought_Won) {	// if nought won
             statusBar.setForeground(Color.RED);
-            statusBar.setText("'O' Won! Click to play again.");
+            statusBar.setText("'O' Won! Click to play again.");	// status bar updates
         }
     }
 		
@@ -123,8 +126,8 @@ public class GameMain extends JPanel implements MouseListener{
 					board.cells[row][col].content = Player.Empty;           
 				}
 			}
-			 currentState = GameState.Playing;
-			 currentPlayer = Player.Cross;
+			 currentState = GameState.Playing;		// gamestate set to playing
+			 currentPlayer = Player.Cross;			// cross starts the game
 		}
 		
 		
@@ -134,17 +137,18 @@ public class GameMain extends JPanel implements MouseListener{
 		 *   
 		 */
 		public void updateGame(Player thePlayer, int row, int col) {
-			//check for win after play
-			if (board.hasWon(thePlayer, row, col)) {
+			// check for win after play
+			if (board.hasWon(thePlayer, row, col)) {		// if current player has won, currentstate updates
 	            if (thePlayer == Player.Cross) {
-	                currentState = GameState.Cross_Won;
+	                currentState = GameState.Cross_Won;		// if thePlayer is Player.Cross, update status to cross won
 	            } else {
-	                currentState = GameState.Nought_Won;
+	                currentState = GameState.Nought_Won;	// if not, nought won	
 	            }
-	        } else if (board.isDraw()) {
-	            currentState = GameState.Draw;
+	        } 
+			else if (board.isDraw()) {
+	            currentState = GameState.Draw;		// or if, game ends in draw currentstate updates to Gamestate.Draw
 	        }
-	        // Otherwise, no change to the current state of playing
+	        // otherwise, no change to the current state of playing
 	    }
 		
 				
@@ -157,7 +161,7 @@ public class GameMain extends JPanel implements MouseListener{
 	    // get the coordinates of where the click event happened            
 		int mouseX = e.getX();             
 		int mouseY = e.getY();             
-		// Get the row and column clicked             
+		// get the row and column clicked             
 		int rowSelected = mouseY / CELL_SIZE;             
 		int colSelected = mouseX / CELL_SIZE;               			
 		if (currentState == GameState.Playing) {                
@@ -166,7 +170,7 @@ public class GameMain extends JPanel implements MouseListener{
 				board.cells[rowSelected][colSelected].content = currentPlayer; 
 				// update currentState                  
 				updateGame(currentPlayer, rowSelected, colSelected); 
-				// Switch player
+				// switch player
 				if (currentPlayer == Player.Cross) {
 					currentPlayer =  Player.Nought;
 				}
@@ -178,7 +182,7 @@ public class GameMain extends JPanel implements MouseListener{
 			// game over and restart              
 			initGame();            
 		}   
-		repaint();        
+		repaint();	// refresh game board
            
 	}
 		

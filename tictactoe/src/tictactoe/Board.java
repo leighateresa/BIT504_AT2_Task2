@@ -15,9 +15,9 @@ public class Board {
 		
 	 //initialising the cells array using ROWS and COLS constants 
 
-		cells = new Cell[GameMain.ROWS][GameMain.COLS];
+		cells = new Cell[GameMain.ROWS][GameMain.COLS];			// the amount and size of rows and cols determined in GameMain
 		for (int row = 0; row < GameMain.ROWS; ++row) {
-			for (int col = 0; col < GameMain.COLS; ++col) {
+			for (int col = 0; col < GameMain.COLS; ++col) {		// for loops determine the positions of rows and cols
 				cells[row][col] = new Cell(row, col);
 			}
 		}
@@ -30,32 +30,32 @@ public class Board {
 		// Check whether the game has ended in a draw. 
 		
 		for (int row = 0; row < GameMain.ROWS; ++row) {
-			for (int col = 0; col < GameMain.COLS; ++col) {
+			for (int col = 0; col < GameMain.COLS; ++col) {		// check each cell on the game board
 				if (cells[row][col].content == Player.Empty) {
-					return false;
+					return false;		// if any cell is empty, the game is not a draw
 				}
 			}
 		}
-		return true;
+		return true;		// if no empty cell is found, game is a draw
 	}
 		 
 	
 	/** Return true if the current player "thePlayer" has won after making their move  */
 	public boolean hasWon(Player thePlayer, int playerRow, int playerCol) {
-		 // check if player has 3-in-that-row
+		 // check if player has 3-in-a-row horizontally, playerRow
 		if(cells[playerRow][0].content == thePlayer && cells[playerRow][1].content == thePlayer && cells[playerRow][2].content == thePlayer )
 			return true; 
 		
-		 // TODO: Check if the player has 3 in the playerCol.
+		 // check if the player has 3-in-a-row vertically, playerCol
 		if(cells[0][playerCol].content == thePlayer && cells[1][playerCol].content == thePlayer && cells[2][playerCol].content == thePlayer)
 			return true;
 		
-		 // 3-in-the-diagonal
+		 // check if the player has 3-in-the-diagonal for top left cell, to bottom right cell
 		if( cells[0][0].content == thePlayer && cells[1][1].content == thePlayer && cells[2][2].content == thePlayer)
 			return true;
 		 
 		
-		// TODO: Check the diagonal in the other direction
+		// check if the player has 3-in-a-diagonal for top right cell, to bottom left cell
 		if( cells[0][2].content == thePlayer && cells[1][1].content == thePlayer && cells[2][0].content == thePlayer)
 			return true;
 
@@ -69,7 +69,7 @@ public class Board {
 	 * Cells to paint themselves into the grid
 	 */
 	public void paint(Graphics g) {
-		//draw the grid
+		// draw the grid
 		g.setColor(Color.gray);
 		for (int row = 1; row < GameMain.ROWS; ++row) {          
 			g.fillRoundRect(0, GameMain.CELL_SIZE * row - GRID_WIDHT_HALF,                
@@ -82,7 +82,7 @@ public class Board {
 					GRID_WIDTH, GRID_WIDTH);
 		}
 		
-		//Draw the cells
+		// draw the cells
 		for (int row = 0; row < GameMain.ROWS; ++row) {          
 			for (int col = 0; col < GameMain.COLS; ++col) {  
 				cells[row][col].paint(g);
